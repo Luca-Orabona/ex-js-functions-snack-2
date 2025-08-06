@@ -38,7 +38,7 @@ console.log(quadratoNum(25));
 //ARROW FUNCTION CHE CALCOLA IL QUADRATO DI UN NUMERO SCRITTO IN UNA SOLA RIGA
 const quadrato = (num) => num * num
 console.log(quadrato(7));
- 
+
 
 //🏆 Snack 3
 // - Crea una funzione eseguiOperazione
@@ -126,3 +126,70 @@ const eseguiEFerma = (message, esegui, ferma) => {
 eseguiEFerma("eccomi", 1000, 6000)
 
 
+
+//🎯 Snack 8 (Bonus)
+//Crea una funzione che simula un conto alla rovescia
+//Scrivi una funzione contoAllaRovescia che accetta un numero n e stampa il conto alla rovescia da n a 0, con un intervallo di 1 secondo tra ogni numero. 
+//Quando arriva a 0, stampa "Tempo scaduto!" e interrompe il timer.
+
+const contoAllaRovescia = (n) => {
+    const intervalId = setInterval(() => {
+        console.log(n);
+        n--
+
+         if(n === 0) {
+             clearInterval(intervalId);
+             console.log("tempo scaduto!");     
+         };
+
+    }, 1000);
+
+}
+
+contoAllaRovescia(5)
+
+
+//🎯 Snack 9 (Bonus)
+//Creare una funzione che esegue una sequenza di operazioni con ritardi
+//Scrivi una funzione sequenzaOperazioni che accetta un array di operazioni (funzioni) e un tempo di intervallo.
+
+//Ogni operazione deve essere eseguita in sequenza con un ritardo uguale al tempo di intervallo.
+
+const sequenzaOperazioni = (array) => {
+  array.forEach((curElem, index) => {
+    setTimeout(() => {
+      console.log(curElem());
+        
+    }, index * 2000); 
+  });
+};
+
+sequenzaOperazioni([() => somma(5, 3), () => quadrato(5)]);
+ 
+
+
+//🎯 Snack 10 (Bonus)
+//Creare un throttler per limitare l’esecuzione di una funzione
+//Scrivi una funzione creaThrottler che accetta una funzione e un tempo `limite`.
+
+//Restituisce una nuova funzione che, quando chiamata ripetutamente, esegue l'operazione originale al massimo una volta ogni n millisecondi.
+
+const creaThrottler = (callback, tempo) => {
+  let isThrottled = false;
+
+  return function () {
+    if (isThrottled) return; 
+    isThrottled = true;
+    console.log(callback());
+
+    setTimeout(() => {
+      isThrottled = false; 
+    }, tempo);
+  };
+};
+
+
+ const esegui = creaThrottler(() => somma(10, 23), 3000)
+ esegui()
+ esegui()
+ setTimeout(() => esegui(), 4000)
